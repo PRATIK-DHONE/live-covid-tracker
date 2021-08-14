@@ -1,10 +1,12 @@
 import './App.css';
+import Covid from "./COMPONENT/covid"
 
-function App() {
+
+const App=() =>{
   return (
-    <div className="App">
-     
-    </div>
+    <>
+     <Covid/>
+    </>
   );
 }
 
