@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react' 
+import Paper from '@material-ui/core/Paper';
+import "./covid.css"
 
 const Covid = ()=>{
 
@@ -7,8 +9,8 @@ const Covid = ()=>{
         try{
            const res = await fetch('https://data.covid19india.org/data.json')
            const actuleData = await res.json()
-           setData(actuleData.statewise[0])
-           console.log(actuleData.statewise[0])
+           setData(actuleData.statewise)
+           console.log(actuleData)
         }catch(err){
             console.log(err)
         }
@@ -19,33 +21,21 @@ const Covid = ()=>{
     },[])
     return(
         <>
-            <h1>🔴 LIVE</h1>
-            <h2>COVIDE-19 CORONAVIRUS TRAKER</h2>
+            {/* <h1>🔴 LIVE</h1>
+            <h2>COVIDE-19 CORONAVIRUS TRAKER</h2> */}
 
-            <ul>
-                <li>
-                    <div>
-                        <p><span>OUR</span>COUNTRY</p>
-                        <p>INDIA</p>
-                    </div>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <div>
-                        <p><span>TOTAL</span>RECOVERED</p>
-                        <p>{data.recovered}</p>
-                    </div>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <div>
-                        <p><span>TOTAL</span>CONFIRMED</p>
-                        <p>{data.confirmed}</p>
-                    </div>
-                </li>
-            </ul>
+            {/* <Paper className="paper">
+                <p><span>OUR</span>COUNTRY</p>
+                <p>INDIA</p>
+             </Paper>      
+            <Paper>
+                <p><span>TOTAL</span>RECOVERED</p>
+                <p>{data.recovered}</p>
+            </Paper>      
+            <Paper>
+                <p><span>TOTAL</span>CONFIRMED</p>
+                <p>{data.confirmed}</p>
+            </Paper>
             <ul>
                 <li>
                     <div>
@@ -67,7 +57,44 @@ const Covid = ()=>{
                         <p>{data.lastupdatedtime}</p>
                     </div>
                 </li>
-            </ul>
+            </ul> */}
+
+            <div className="container-fluid mt-5">
+                <div className="main-heading">
+                    <h1 className='mb-5 text-center'><span className="font-weight-bold">INDIA</span> COVID=19 Dashboard</h1>
+                </div>
+                <div className='table-responsive'>
+                    <table className='table table-hover'>
+                        <thead className='thead-dark'>
+                            <tr>
+                                <th>State</th>
+                                <th>Confirmed</th>
+                                <th>Recovered</th>
+                                <th>Deaths</th>
+                                <th>Active</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                data.map((curEle,ind)=>{
+                                    return(
+                                        <tr key='ind'>
+                                        <th>{curEle.state}</th>
+                                        <td>{curEle.confirmed}</td>
+                                        <td>{curEle.recovered}</td>
+                                        <td>{curEle.deaths}</td>
+                                        <td>{curEle.active}</td>
+                                        <td>{curEle.lastupdatedtime}</td>
+                                    </tr>  
+                                    )
+                                })
+                            }
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </>
     )
 }
